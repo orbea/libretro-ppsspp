@@ -111,6 +111,7 @@ option(USING_X11_VULKAN "Set to OFF if target environment doesn't use X11 for Vu
 option(USE_WAYLAND_WSI "Enable or disable Wayland WSI support for Vulkan" ${USE_WAYLAND_WSI})
 # :: Frontends
 option(USING_QT_UI "Set to ON if you wish to use the Qt frontend wrapper" ${USING_QT_UI})
+option(USING_SDL_UI "Set to OFF if you wish to disable the SDL frontend wrapper" ON)
 option(MOBILE_DEVICE "Set to ON when targeting a mobile device" ${MOBILE_DEVICE})
 option(HEADLESS "Set to OFF to not generate the PPSSPPHeadless target" ${HEADLESS})
 option(UNITTEST "Set to ON to generate the unittest target" ${UNITTEST})
@@ -181,9 +182,10 @@ if(USING_EGL)
 	set(OPENGL_LIBRARIES ${OPENGL_LIBRARIES} ${EGL_LIBRARIES})
 endif()
 
-if(NOT LIBRETRO)
+if(USING_SDL_UI)
 	find_package(SDL2)
 endif()
+
 include(FindThreads)
 
 if(APPLE)
